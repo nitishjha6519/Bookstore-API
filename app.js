@@ -1,18 +1,23 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 const bodyparser = require("body-parser");
 const loginRoute = require("./routes/users");
 const jwt = require("jsonwebtoken");
 const bookDetailsRoute = require("./routes/bookdetails");
-const secret = "mongo";
-mongoose.connect("mongodb://127.0.0.1/bookstore", (err) => {
-  if (!err) {
-    console.log("Connected to DB");
-  } else {
-    console.log(err.message);
+const secret = process.env.secret;
+mongoose.connect(
+  `mongodb://${process.env.user}:${process.env.pass}@ac-kof8i2l-shard-00-00.eqvbavg.mongodb.net:27017,ac-kof8i2l-shard-00-01.eqvbavg.mongodb.net:27017,ac-kof8i2l-shard-00-02.eqvbavg.mongodb.net:27017/${process.env.db}?ssl=true&replicaSet=atlas-1k2p6j-shard-0&authSource=admin&retryWrites=true&w=majority`,
+  (err) => {
+    if (!err) {
+      console.log("Connected to DB");
+    } else {
+      console.log(err.message);
+    }
   }
-});
+);
 const app = express();
 
 app.use(cors());
