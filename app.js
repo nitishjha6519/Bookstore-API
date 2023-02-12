@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require("cors");
 const bodyparser = require("body-parser");
 const loginRoute = require("./routes/users");
 const jwt = require("jsonwebtoken");
@@ -14,7 +15,9 @@ mongoose.connect("mongodb://127.0.0.1/bookstore", (err) => {
 });
 const app = express();
 
+app.use(cors());
 app.use(bodyparser.json());
+
 app.use("/v1/users", loginRoute);
 app.use("/v1/bookdetails", async (req, res, next) => {
   if (req.headers.authorization) {
