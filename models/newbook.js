@@ -8,6 +8,8 @@ const newBookSchema = new mongoose.Schema(
     description: { type: String },
     published_date: { type: String },
     publisher: { type: String },
+    id: { type: String },
+    // type: mongoose.Schema.Types.ObjectId, ref: "Users" =>if user details needed from Users collection
   },
   { collection: "Newbooks" }
 );

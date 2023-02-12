@@ -25,12 +25,15 @@ app.use("/v1/bookdetails", async (req, res, next) => {
     jwt.verify(token, secret, (err, decoded) => {
       if (err) {
         return res.status(400).json({
-          sttaus: "failed",
+          status: "failed",
           message: err,
         });
       }
+      //add id property to req object
 
       req.id = decoded.data;
+      console.log(req.id);
+      console.log(decoded);
       next();
     });
   }
